@@ -13,8 +13,6 @@ std::set<ColourType*> SimpleUI::ColourInstances = {};
 std::set<TextureType*> SimpleUI::TextureInstances = {};
 std::set<AnimationType*> SimpleUI::AnimationInstances = {};
 
-bool SimpleUI::SimpleUI_debug = false;
-
 SDL_Window* SimpleUI::window = nullptr;
 SDL_Renderer* SimpleUI::renderer = nullptr;
 SDL_Surface* SimpleUI::screenSurface = nullptr;

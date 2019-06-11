@@ -11,7 +11,7 @@
 #include <vector>
 #include <type_traits>
 #include <climits>
-#include "logger.h"
+#include "simpleui_logger.h"
 
 /* USER GUIDE
  *

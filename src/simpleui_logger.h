@@ -3,7 +3,6 @@
 #include <string>
 #include <stdio.h>
 #include <map>
-#include "simpleui.h"
 
 enum ColourEnums {
 	RESET,
@@ -19,6 +18,8 @@ enum ColourEnums {
 };
 
 extern std::map<ColourEnums, const char*> Colours;
+
+extern bool SimpleUI_debug;
 
 std::string GetTime();
 

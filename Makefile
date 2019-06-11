@@ -7,7 +7,7 @@ CXXFLAGS = -O3 -Wall -Weffc++ -ansi -pedantic -std=c++17 -I$(SOURCEDIR) -c -fPIC
 LDFLAGS = -shared -L$(SOURCEDIR) -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_fontcache -lstdc++fs -Wl,-rpath,'$$ORIGIN'
 
 LIBRARY = simpleui
-OBJ = simpleui logger classes/animation classes/base classes/cleanup classes/frame classes/text classes/texture
+OBJ = simpleui simpleui_logger classes/animation classes/base classes/cleanup classes/frame classes/text classes/texture
 OBJECTS = $(patsubst %, $(OBJECTDIR)/%.o, $(OBJ))
 
 BINARIES = /usr/lib/x86_64-linux-gnu/
@@ -20,11 +20,12 @@ all: $(LIBRARY)
 
 install: $(all)
 	cp -f $(BUILDDIR)/* $(BINARIES)
-	cp -f $(SOURCEDIR)/$(LIBRARY).h $(HEADERS)
+	cp -f $(SOURCEDIR)/*.h $(HEADERS)
 
 uninstall:
 	rm -f $(SDL_BINARIES)$(PREFIX)$(LIBRARY)*
-	rm -f $(SDL_HEADERS)SDL_fontcache.h
+	rm -f $(SDL_HEADERS)simpleui.h
+	rm -f $(SDL_HEADERS)simpleui_log.h
 
 $(OBJECTDIR)/%.o: $(SOURCEDIR)/%.cpp
 	mkdir -p $(shell dirname $@)

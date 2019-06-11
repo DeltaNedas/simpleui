@@ -13,6 +13,8 @@ std::map<ColourEnums, const char*> Colours = {
 	{WHITE, "\033[37m"}
 };
 
+bool SimpleUI_debug = false;
+
 std::string GetTime() {
 	time_t t = time(0);
 	tm* now = localtime(&t);
@@ -25,7 +27,7 @@ void SimpleUI_Log(std::string str, Level level) {
 	const char* text = str.c_str();
 	switch (level) {
 		case Level::DEBUG:
-			if (SimpleUI::SimpleUI_debug) {
+			if (SimpleUI_debug) {
 				printf("[%sDEBUG%s] [%s%s%s]: %s\n",
 					Colours[GREEN], Colours[RESET],
 					Colours[GREEN], now, Colours[RESET],
