@@ -189,12 +189,12 @@ namespace SimpleUI {
 
 		private:
 			std::string Text = "";       // R/W
-			FC_Font* Font = NULL;        // R/W
-			ColourType* Colour;          // R/W
-			bool Wrap = false;           // R/W
-			bool ScaleX = false;         // R/W
-			bool ScaleY = false;         // R/W
-			Vec2 Size;                   // R/(W)
+			FC_Font* Font = NULL;	// R/W
+			ColourType* Colour;	  // R/W
+			bool Wrap = false;	   // R/W
+			bool ScaleX = false;	 // R/W
+			bool ScaleY = false;	 // R/W
+			Vec2 Size;		   // R/(W)
 	};
 
 	class SizeType {

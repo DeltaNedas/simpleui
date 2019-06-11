@@ -3,25 +3,25 @@
 using namespace SimpleUI;
 
 std::string getVersion() {
-	return "@@VERSION@@";
+	return "0.1.2";
 }
 
-std::set<Frame*> FrameInstances = {};
-std::set<Frame*> VisibleFrameInstances = {};
-std::set<TextType*> TextInstances = {};
-std::set<ColourType*> ColourInstances = {};
-std::set<TextureType*> TextureInstances = {};
-std::set<AnimationType*> AnimationInstances = {};
+std::set<Frame*> SimpleUI::FrameInstances = {};
+std::set<Frame*> SimpleUI::VisibleFrameInstances = {};
+std::set<TextType*> SimpleUI::TextInstances = {};
+std::set<ColourType*> SimpleUI::ColourInstances = {};
+std::set<TextureType*> SimpleUI::TextureInstances = {};
+std::set<AnimationType*> SimpleUI::AnimationInstances = {};
 
-bool SimpleUI_debug = false;
+bool SimpleUI::SimpleUI_debug = false;
 
-SDL_Window* window = nullptr;
-SDL_Renderer* renderer = nullptr;
-SDL_Surface* screenSurface = nullptr;
-SDL_Event event;
+SDL_Window* SimpleUI::window = nullptr;
+SDL_Renderer* SimpleUI::renderer = nullptr;
+SDL_Surface* SimpleUI::screenSurface = nullptr;
+SDL_Event SimpleUI::event;
 
-Vec2 windowSize;
-Vec2 cameraBounds;
+Vec2 SimpleUI::windowSize;
+Vec2 SimpleUI::cameraBounds;
 
 void Camera::Move(int x, int y) {
 	Move((double) x, (double) y);
@@ -42,4 +42,4 @@ void Camera::Move(double x, double y) {
 	}
 }
 
-Camera camera;
+Camera SimpleUI::camera;
