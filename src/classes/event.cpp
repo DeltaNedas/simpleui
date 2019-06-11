@@ -10,7 +10,7 @@ EventType::EventType(Frame* caller) {
 
 // Event callbacks
 
-bool SimpleUI::mousePressed = false;
+bool mousePressed = false;
 
 void SimpleUI::updateEvents() {
 	switch (event.type) {

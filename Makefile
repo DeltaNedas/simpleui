@@ -7,7 +7,7 @@ CXXFLAGS = -O3 -Wall -Weffc++ -ansi -pedantic -std=c++17 -I$(SOURCEDIR) -c -fPIC
 LDFLAGS = -shared -L$(SOURCEDIR) -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_fontcache -lstdc++fs -Wl,-rpath,'$$ORIGIN'
 
 LIBRARY = simpleui
-OBJ = simpleui simpleui_logger classes/animation classes/base classes/cleanup classes/frame classes/text classes/texture
+OBJ = simpleui simpleui_logger classes/animation classes/base classes/cleanup classes/event classes/frame classes/text classes/texture
 OBJECTS = $(patsubst %, $(OBJECTDIR)/%.o, $(OBJ))
 
 BINARIES = /usr/lib/x86_64-linux-gnu/
