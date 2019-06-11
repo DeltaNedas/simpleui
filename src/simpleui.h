@@ -53,7 +53,7 @@ namespace SimpleUI {
 			Rng const& rng;
 	};
 
-	// Clamps int 'i' between 0 and 255.
+	std::string getVersion();
 
 	class Vec2 {
 		public:

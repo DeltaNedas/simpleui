@@ -1,4 +1,7 @@
-VERSION = 0.1.0
+MAJOR = 0
+MINOR = 1
+PATCH = 1
+VERSION = $(MAJOR).$(MINOR).$(PATCH)
 VERSION_REPLACE = @@VERSION@@
 
 BUILDDIR = build
@@ -13,19 +16,24 @@ LIBRARY = simpleui
 OBJ = simpleui logger classes/animation classes/base classes/cleanup classes/frame classes/text classes/texture
 OBJECTS = $(patsubst %, $(OBJECTDIR)/%.o, $(OBJ))
 
-PREFIX = lib
-SUFFIX = .so.$(VERSION)
+SHARED = lib$(LIBRARY).so
+SHARED_MAJOR = $(SHARED).$(MAJOR)
+SHARED_MINOR = $(SHARED).$(MAJOR).$(MINOR)
+SHARED_PATCH = $(SHARED).$(VERSION)
+STATIC = lib$(LIBRARY).a
 
 all: $(LIBRARY)
 
 $(OBJECTDIR)/%.o: $(SOURCEDIR)/%.cpp
-	mkdir -p `dirname $@`
-	sed -i 's/$(VERSION_REPLACE)/$(VERSION)/g' $^
+	mkdir -p $(shell dirname $@)
+	sed -i 's/$(VERSION_REPLACE)/$(VERSION)/g' $^ # Replace @@VERSION@@ with the version.
 	$(CXX) $(CXXFLAGS) -o $@ $^
+	sed -i 's/$(VERSION)/$(VERSION_REPLACE)/g' $^ # Replace the version with @@VERSION@@ to not break it.
 
 $(LIBRARY): $(OBJECTS)
 	mkdir -p $(BUILDDIR)
-	$(CXX) -o $(BUILDDIR)/$(PREFIX)$@$(SUFFIX) $^ $(LDFLAGS)
+	$(CXX) -o $(BUILDDIR)/$(SHARED_PATCH) $^ $(LDFLAGS)
+	ar rcs $(BUILDDIR)/$(STATIC) $^
 
 clean:
 	rm -rf $(OBJECTDIR)

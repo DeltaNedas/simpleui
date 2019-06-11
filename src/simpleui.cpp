@@ -2,6 +2,10 @@
 
 using namespace SimpleUI;
 
+std::string getVersion() {
+	return "@@VERSION@@";
+}
+
 std::set<Frame*> FrameInstances = {};
 std::set<Frame*> VisibleFrameInstances = {};
 std::set<TextType*> TextInstances = {};
