@@ -322,8 +322,6 @@ namespace SimpleUI {
 	extern std::set<ColourType*> ColourInstances;
 	extern std::set<TextureType*> TextureInstances;
 	extern std::set<AnimationType*> AnimationInstances;
-	
-	extern bool SimpleUI_debug;
 
 	extern SDL_Window* window;
 	extern SDL_Renderer* renderer;
