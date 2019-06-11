@@ -10,14 +10,17 @@ LIBRARY = simpleui
 OBJ = simpleui logger classes/animation classes/base classes/cleanup classes/frame classes/text classes/texture
 OBJECTS = $(patsubst %, $(OBJECTDIR)/%.o, $(OBJ))
 
+BINARIES = /usr/lib/x86_64-linux-gnu/
+HEADERS = /usr/include/
+
 SHARED = lib$(LIBRARY).so
 STATIC = lib$(LIBRARY).a
 
 all: $(LIBRARY)
 
 install: $(all)
-	cp -f $(BUILDDIR)/* $(SDL_BINARIES)
-	cp -f $(SOURCEDIR)/$(LIBRARY).h $(SDL_HEADERS)
+	cp -f $(BUILDDIR)/* $(BINARIES)
+	cp -f $(SOURCEDIR)/$(LIBRARY).h $(HEADERS)
 
 uninstall:
 	rm -f $(SDL_BINARIES)$(PREFIX)$(LIBRARY)*
