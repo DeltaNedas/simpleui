@@ -1,4 +1,4 @@
-#include "logger.h"
+#include "simpleui_logger.h"
 
 std::map<ColourEnums, const char*> Colours = {
 	{RESET, "\033[0m"},

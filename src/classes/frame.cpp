@@ -144,7 +144,7 @@ void Frame::setPivot(SizeType pivot) {
 			Vec2 parentPivot = Parent->getAbsolutePivot();
 			int parentX = parentPivot.X;
 			int parentY = parentPivot.Y;
-			
+
 			totalX += static_cast<int>(parentX * Pivot.Scale.X);
 			totalY += static_cast<int>(parentY * Pivot.Scale.Y);
 		}
@@ -273,4 +273,13 @@ Vec2 Frame::getAbsolutePivot() {
 
 double Frame::getRotation() {
 	return Rotation;
+}
+
+int SimpleUI::updateFrames() {
+        int ret = 0;
+        for (Frame* frame : Reverse(VisibleFrameInstances)) {
+                frame->setParent(frame->getParent());
+                ret++;
+        }
+        return ret;
 }

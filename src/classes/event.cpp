@@ -10,9 +10,9 @@ EventType::EventType(Frame* caller) {
 
 // Event callbacks
 
-bool mousePressed;
+bool SimpleUI::mousePressed = false;
 
-void updateEvents() {
+void SimpleUI::updateEvents() {
 	switch (event.type) {
 		case SDL_MOUSEBUTTONDOWN:
 			mousePressed = true;

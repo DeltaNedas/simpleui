@@ -2,7 +2,7 @@
 
 using namespace SimpleUI;
 
-std::string getVersion() {
+std::string SimpleUI::getVersion() {
 	return "0.1.2";
 }
 
