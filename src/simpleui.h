@@ -328,7 +328,7 @@ namespace SimpleUI {
 	extern SDL_Surface* screenSurface;
 	extern SDL_Event event;
 
-	extern int tickCount;
+
 	extern Vec2 windowSize;
 	extern Vec2 cameraBounds;
 
