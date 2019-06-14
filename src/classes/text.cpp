@@ -17,6 +17,7 @@ TextType::TextType(FC_Font* font, std::string text) {
 }
 
 TextType::~TextType() {
+	SimpleUI_Log("John", Level::WARN);
 	if (Font) {
 		FC_FreeFont(Font);
 	}
