@@ -5,10 +5,12 @@ using namespace SimpleUI;
 // TextType
 
 TextType::TextType() {
+	Font = NULL;
 	TextInstances.insert(this);
 }
 
 TextType::TextType(FC_Font* font, std::string text) {
+	Font = NULL;
 	setFont(font);
 	setText(text);
 	TextInstances.insert(this);
