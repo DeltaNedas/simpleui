@@ -55,6 +55,11 @@ namespace SimpleUI {
 
 	std::string getVersion();
 
+	class Component {
+		public:
+			virtual Component();
+	}
+
 	class Vec2 {
 		public:
 			Vec2() {}
@@ -233,7 +238,7 @@ namespace SimpleUI {
 			std::vector<TextureType*> Frames = {};
 	};
 
-	class Frame {
+	class Frame : public Component {
 		public:
 			Frame();
 
