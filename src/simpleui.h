@@ -56,9 +56,7 @@ namespace SimpleUI {
 	std::string getVersion();
 
 	class Component {
-		public:
-			virtual Component();
-	}
+	};
 
 	class Vec2 {
 		public:
@@ -130,12 +128,13 @@ namespace SimpleUI {
 			Vec2 getScale();
 			bool getClip();
 			ColourType* getColour();
+
 		private:
-			SDL_Texture* Texture;
-			std::string Path;
-			Vec2 Scale;
-			bool Clip;
-			ColourType* Colour;
+			SDL_Texture* Texture = nullptr;
+			std::string Path = "";
+			Vec2 Scale = Vec2(1, 1);
+			bool Clip = true;
+			ColourType* Colour = new ColourType(0, 0, 0);
 	};
 
 	enum class EventEnum {
@@ -156,7 +155,7 @@ namespace SimpleUI {
 			EventType() {}
 			EventType(Frame* caller);
 
-			Frame* Caller;
+			Frame* Caller = nullptr;
 			SDL_MouseMotionEvent MouseMotionEvent;
 			SDL_MouseButtonEvent MouseButtonEvent;
 			SDL_MouseWheelEvent MouseWheelEvent;
@@ -194,12 +193,12 @@ namespace SimpleUI {
 
 		private:
 			std::string Text = "";       // R/W
-			FC_Font* Font = NULL;	// R/W
-			ColourType* Colour;	  // R/W
-			bool Wrap = false;	   // R/W
-			bool ScaleX = false;	 // R/W
-			bool ScaleY = false;	 // R/W
-			Vec2 Size;		   // R/(W)
+			FC_Font* Font = nullptr;     // R/W
+			ColourType* Colour = new ColourType(0, 0, 0); // R/W
+			bool Wrap = false;           // R/W
+			bool ScaleX = false;         // R/W
+			bool ScaleY = false;         // R/W
+			Vec2 Size = Vec2(0, 0);             // R/ Indirect W
 	};
 
 	class SizeType {
@@ -213,8 +212,8 @@ namespace SimpleUI {
 			//Returns a string "Scale: {X: <sX>, Y: <sY>}, Offset: {X: <oX>, Y: <oY>}", useful for debugging.
 			std::string to_string();
 
-			Vec2 Scale;
-			Vec2 Offset;
+			Vec2 Scale = Vec2(0, 0);
+			Vec2 Offset = Vec2(0, 0);
 	};
 
 	// Known bug:
@@ -279,32 +278,37 @@ namespace SimpleUI {
 			void toggleVisible(bool recursive = false);
 			void toggleAnchored(bool recursive = false);
 
+			//Update
+			void updateOnScreen();
+
 			// Logic
 			bool isPointInBounds(Vec2 point, bool absolute = false);
 			bool isPointInBounds(int pointX, int pointY, bool absolute = false);
+			bool isOnScreen();
 
 			// Other
 			void nextAnimationFrame();
 			void prevAnimationFrame();
 
 		private:
-			SizeType Size;
-			SizeType Position;
-			Vec2 AbsoluteSize;
-			Vec2 AbsolutePosition;
+			SizeType Size = SizeType(Vec2(0, 0), Vec2(0, 0)); // Overwritten in constructor
+			SizeType Position = SizeType(Vec2(0, 0), Vec2(0, 0)); // ^
+			Vec2 AbsoluteSize = Vec2(0, 0); // ^
+			Vec2 AbsolutePosition = Vec2(0, 0); // ^
 			bool Visible = false;
 			bool Anchored = false;
-			Frame* Parent = NULL;
+			Frame* Parent = nullptr;
 			std::set<Frame*> Children = {};
-			TextureType* Texture;
-			TextType* Text;
-			std::set<EventEnum> EventTypes;
-			std::vector<EventCallback> EventCallbacks;
-			AnimationType* Animation;
+			TextureType* Texture = nullptr;
+			TextType* Text = nullptr;
+			std::set<EventEnum> EventTypes = {};
+			std::vector<EventCallback> EventCallbacks = {};
+			AnimationType* Animation = nullptr;
 			unsigned int CurrentFrame = 0;
-			SizeType Pivot;
-			Vec2 AbsolutePivot;
+			SizeType Pivot = SizeType(Vec2(0, 0), Vec2(0, 0)); // Overwritten in constructor
+			Vec2 AbsolutePivot = Vec2(0, 0); // ^
 			int Rotation = 0;
+			bool OnScreen = false;
 	};
 
 
@@ -342,7 +346,7 @@ namespace SimpleUI {
 			Camera() {}
 			void Move(int x, int y);
 			void Move(double x, double y);
-			double X, Y;
+			double X = 0.0, Y = 0.0;
 	};
 
 	extern Camera camera;

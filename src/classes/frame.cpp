@@ -5,7 +5,6 @@ using namespace SimpleUI;
 // Frame
 
 Frame::Frame() {
-	EventCallbacks.resize(10);
 	setPivot(SizeType(Vec2(0.5, 0.5), Vec2(0, 0)));
 	setSize(SizeType(Vec2(0.5, 0.5), Vec2(0, 0)));
 	setPosition(SizeType(Vec2(0.25, 0.25), Vec2(0, 0)));
@@ -36,6 +35,7 @@ void Frame::setSize(SizeType size) {
 		}
 	}
 	AbsoluteSize = Vec2(totalX, totalY);
+	updateOnScreen();
 }
 
 void Frame::setPosition(SizeType position) {
@@ -67,8 +67,12 @@ void Frame::setPosition(SizeType position) {
 			totalY += static_cast<int>(parentY * Position.Scale.Y);
 		}
 	}
-
+	if (!Anchored) {
+		totalX -= camera.X;
+		totalY -= camera.Y;
+	}
 	AbsolutePosition = Vec2(totalX, totalY);
+	updateOnScreen();
 }
 
 void Frame::setVisible(bool visible, bool recursive) {
@@ -175,11 +179,27 @@ void Frame::toggleAnchored(bool recursive) {
 	}
 }
 
+void Frame::updateOnScreen() {
+	Vec2 cameraPos = Vec2(camera.X, camera.Y);
+	Vec2 pos = AbsolutePosition;
+	Vec2 size = AbsoluteSize + AbsolutePosition;
+	if (!Anchored) {
+		pos += cameraPos;
+		size += cameraPos;
+	}
+	
+	OnScreen = !(0 > size.X || pos.X > windowSize.X || 0 > size.Y || pos.Y > windowSize.Y);
+}
+
 bool Frame::isPointInBounds(Vec2 point, bool absolute) {
 	if (absolute) {
 		Vec2 cameraPos = Vec2(camera.X, camera.Y);
-		Vec2 pos = AbsolutePosition + cameraPos;
-		Vec2 size = AbsoluteSize + AbsolutePosition + cameraPos;
+		Vec2 pos = AbsolutePosition;
+		Vec2 size = AbsoluteSize + AbsolutePosition;
+		if (!Anchored) {
+			pos += cameraPos;
+			size += cameraPos;
+		}
 		return (pos.X < point.X) && (pos.Y < point.Y) && (size.X > point.X) && (size.Y > point.Y);
 	}
 	Vec2 size = AbsoluteSize;
@@ -188,6 +208,10 @@ bool Frame::isPointInBounds(Vec2 point, bool absolute) {
 
 bool Frame::isPointInBounds(int pointX, int pointY, bool absolute) {
 	return isPointInBounds(Vec2(pointX, pointY), absolute);
+}
+
+bool Frame::isOnScreen() {
+	return OnScreen;
 }
 
 void Frame::nextAnimationFrame() {

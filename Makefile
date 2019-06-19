@@ -18,7 +18,7 @@ STATIC = lib$(LIBRARY).a
 
 all: $(LIBRARY)
 
-install: $(all)
+install: $(LIBRARY)
 	cp -f $(BUILDDIR)/* $(BINARIES)
 	cp -f $(SOURCEDIR)/*.h $(HEADERS)
 
